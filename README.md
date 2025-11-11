@@ -1,16 +1,91 @@
-# React + Vite
+## 📽️ Movie Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Movie Explorer** is a sleek and responsive web application that allows users to search, explore, and learn more about movies. It fetches data from a public movie API and displays details like ratings, genres, cast, and trailers.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🚀 Features
 
-## React Compiler
+- 🔍 Search movies by title or keyword
+- 🎬 View movie details including synopsis, cast, and ratings
+- 📅 Browse by release year or genre
+- 🌐 Responsive design for mobile and desktop
+- 💾 Save Watchlist (optional with local storage or user auth)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+### 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React, React Router
+- **Styling:** CSS Modules / Styled Components
+- **API:** [The Movie Database (TMDb)](https://www.themoviedb.org/documentation/api)
+- **Deployment:** Netlify / GitHub Pages
+
+---
+
+### 📦 Installation
+
+```bash
+git clone https://github.com/yourusername/movie-explorer.git
+cd movie-explorer
+npm install
+npm start
+```
+
+---
+
+### ⚙️ Configuration
+
+Create a `.env` file in the root directory and add your TMDb API key:
+
+```env
+REACT_APP_TMDB_API_KEY=your_api_key_here
+```
+
+---
+
+### 📁 Project Structure
+
+```
+movie-explorer/
+├── public/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── App.js
+│   └── index.js
+├── .env
+├── package.json
+└── README.md
+```
+
+---
+
+### 🧪 Testing
+
+```bash
+npm test
+```
+
+Uses Jest and React Testing Library for unit and integration tests.
+
+---
+
+### 📤 Deployment
+
+To deploy on Netlify:
+
+```bash
+npm run build
+```
+
+Then drag the `build/` folder into Netlify or connect your GitHub repo.
+
+---
+
+### 📄 License
+
+This project is licensed under the MIT License.
+
+---
