@@ -18,7 +18,11 @@ export default function Menu() {
       </button>
       <ul className={`nav-list ${isOpen ? "open" : ""}`}>
         <li>
-          <NavLink style={({ isActive }) => (isActive ? styles : null)} to="/">
+          <NavLink
+            style={({ isActive }) => (isActive ? styles : null)}
+            to="/"
+            onClick={() => setIsOpen(false)}
+          >
             Home
           </NavLink>
         </li>
@@ -27,6 +31,7 @@ export default function Menu() {
           <NavLink
             style={({ isActive }) => (isActive ? styles : null)}
             to="movies"
+            onClick={() => setIsOpen(false)}
           >
             Movies
           </NavLink>
@@ -35,6 +40,7 @@ export default function Menu() {
           <NavLink
             style={({ isActive }) => (isActive ? styles : null)}
             to="popular"
+            onClick={() => setIsOpen(false)}
           >
             Popular
           </NavLink>
@@ -43,6 +49,7 @@ export default function Menu() {
           <NavLink
             style={({ isActive }) => (isActive ? styles : null)}
             to="watchlist"
+            onClick={() => setIsOpen(false)}
           >
             Watchlist
           </NavLink>
@@ -51,6 +58,7 @@ export default function Menu() {
           <NavLink
             style={({ isActive }) => (isActive ? styles : null)}
             to="about"
+            onClick={() => setIsOpen(false)}
           >
             About
           </NavLink>
