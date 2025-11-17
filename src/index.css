@@ -31,11 +31,7 @@ body {
 p {
   line-height: 1.6;
 }
-header > img {
-  max-height: 60px;
-  background-color: var(--royal-blue);
-  border-radius: 50%;
-}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -43,25 +39,32 @@ header {
   position: fixed;
   padding: 10px;
   width: 100%;
+  height: 70px;
   background-color: var(--gray-color4);
   z-index: 100;
 }
-header > * {
-  max-width: 100%;
-  flex-shrink: 1;
+
+header > img {
+  max-height: 90%;
+  background-color: var(--royal-blue);
+  border-radius: 50%;
 }
-.navbar {
-  padding: 20px;
+.nav-list {
+  list-style: none;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 20px;
+  gap: 1rem;
+  padding-right: 30px;
+  margin: 0;
 }
-.navbar > a {
+.nav-list li {
+  display: inline-block;
+}
+
+.nav-list > li a {
   text-decoration: none;
   color: var(--royal-blue);
 }
-.navbar > a:hover {
+.nav-list > li a:hover {
   color: #000;
   font-weight: bold;
 }
@@ -69,7 +72,7 @@ header > * {
 .movie-details-container {
   display: flex;
   flex-wrap: wrap;
-  padding: 20px;
+  padding: 0px 20px;
   gap: 20px;
   justify-content: center;
 }
@@ -163,9 +166,11 @@ main {
   margin-bottom: 30px;
   padding-top: 85px;
 }
-
+/* .homepage-movie-container {
+  margin-top: 70px;
+} */
 .homepage-movie-image-container {
-  padding: 10px 0;
+  /* padding: 10px 0; */
   margin: 0px auto;
   display: flex;
   max-width: 80%;
@@ -213,9 +218,40 @@ main {
 .aboutpage-text {
   font-family: "Bebas Neue", sans-serif;
 }
-/* .aboutpage-container > p {
-  font-family: "Roboto", sans-serif;
-} */
+.menu-container {
+  position: relative;
+}
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
 
 @media (max-width: 600px) {
+  .menu-toggle {
+    display: block;
+    padding-right: 50px;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-list.open {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-list li {
+    padding: 0.5rem 1rem;
+  }
 }
