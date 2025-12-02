@@ -34,7 +34,7 @@ export default function Menu() {
         ☰
       </button>
       <div className="search-container">
-        <input className="search-input" />
+        <input className="search-input" placeholder="Search" />
         <div className="searchbox">
           <img src={searchIcon} />
         </div>
