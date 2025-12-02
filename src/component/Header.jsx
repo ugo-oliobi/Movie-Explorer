@@ -13,31 +13,3 @@ function Header() {
 }
 
 export default Header;
-
-//  <NavLink style={({ isActive }) => (isActive ? styles : null)} to="/">
-//           Home
-//         </NavLink>
-//         <NavLink
-//           style={({ isActive }) => (isActive ? styles : null)}
-//           to="movies"
-//         >
-//           Movies
-//         </NavLink>
-//         <NavLink
-//           style={({ isActive }) => (isActive ? styles : null)}
-//           to="popular"
-//         >
-//           Popular
-//         </NavLink>
-//         <NavLink
-//           style={({ isActive }) => (isActive ? styles : null)}
-//           to="watchlist"
-//         >
-//           Watchlist
-//         </NavLink>
-//         <NavLink
-//           style={({ isActive }) => (isActive ? styles : null)}
-//           to="about"
-//         >
-//           About
-//         </NavLink>

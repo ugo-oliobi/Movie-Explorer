@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-// import parentalControl from "../assets/image/logo.png";
+import { Link } from "react-router-dom";
+
 import parentalControl from "../assets/parentalcontrol.svg";
 
 import { useParams } from "react-router-dom";
@@ -27,6 +28,9 @@ export default function MovieDetails() {
     <div className="movie-details-container ">
       {movie ? (
         <div className="movie-details">
+          <Link to=".." relative="path">
+            &larr; <span>back to movies</span>
+          </Link>
           <img
             src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
             alt={movie.title}
@@ -40,7 +44,7 @@ export default function MovieDetails() {
               {movie.status}
             </p>
             <p>
-              <strong>Realeased Date: </strong>
+              <strong>Released Date: </strong>
               {getReleasedDate(movie.release_date)}
             </p>
             <p>
