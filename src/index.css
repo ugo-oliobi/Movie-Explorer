@@ -269,7 +269,7 @@ main {
 }
 .search-input:focus {
   padding: 8px 10px 8px 35px;
-  background-image: url("./assets/image/search-icon.svg");index
+  background-image: url("./assets/image/search-icon.svg");
   outline: none;
   border: 1px solid rgb(107, 107, 240); /* Adds a custom border on focus */
   box-shadow: 0 0 5px rgba(0, 0, 255, 0.5); /* Adds a subtle glow */
