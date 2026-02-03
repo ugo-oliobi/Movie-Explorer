@@ -149,7 +149,7 @@ a:active {
   border: none;
   cursor: pointer;
   box-shadow: 2px 2px 5px 2px var(--gray-color3);
-  border-radius: 5px;
+  border-radius: 18px;
   font-family: var(--primary-font);
   font-size: 17px;
   cursor: pointer;
@@ -162,7 +162,13 @@ a:active {
   color: white;
   margin-bottom: 10px;
   /* margin-left: 10px; */
+  text-align: center;
+  width: 40%;
   background-color: var(--royal-blue);
+}
+.watch_on_netflix > a {
+  color: white;
+  text-decoration: none;
 }
 .watchlist-btn {
   border: none;
