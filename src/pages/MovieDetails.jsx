@@ -1,38 +1,97 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import {
+  Link,
+  useLocation,
+  useLoaderData,
+  defer,
+  Await,
+  useNavigate,
+} from "react-router-dom";
+import logo from "../assets/image/movieLogo.svg";
 import parentalControl from "../assets/parentalcontrol.svg";
+import { onAuthStateChanged } from "firebase/auth";
+import {
+  collection,
+  doc,
+  addDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
+//import BackButton from "../component/BackButton";
 
-import { useParams } from "react-router-dom";
-import { getGenreNames, getReleasedDate } from "../utils";
+// import { useParams } from "react-router-dom";
+import { getGenreNames, getMovieDetails, getReleasedDate } from "../utils";
+import { Suspense } from "react";
+import LoadingSpinner from "../component/loadingSpinner";
+import { auth, collectionName, db } from "../utils";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export default function MovieDetails() {
-  const [movie, setMovie] = useState(null);
-  const { id } = useParams();
+export function loader({ params, request }) {
+  const pathname = new URL(request.url).pathname;
 
-  useEffect(() => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}
-`)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovie(data);
-      });
-  }, [id]);
-  console.log(movie);
-  if (!movie) {
-    return <h1>Loading...</h1>;
+  const url = `https://api.themoviedb.org/3/movie/${params.id}?api_key=${API_KEY}
+`;
+
+  return defer({ movie: getMovieDetails(url), pathname });
+}
+
+export default function MovieDetails() {
+  const movieData = useLoaderData();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = movieData.pathname;
+
+  function handleClick() {
+    const user = auth.currentUser;
+    if (!user) {
+      navigate(`/login?pathname=${pathname}`);
+    } else {
+      addDocToDb(user);
+    }
   }
 
-  return (
-    <div className="movie-details-container ">
-      {movie ? (
+  async function addDocToDb(user) {
+    try {
+      const data = await movieData.movie;
+      const q = query(
+        collection(db, collectionName),
+        where("uid", "==", user.uid),
+        where("title", "==", data.title),
+      );
+      const snapshot = await getDocs(q);
+
+      if (!snapshot.empty) {
+        alert("Movie already in watchlist!");
+        return;
+      }
+
+      await addDoc(collection(db, collectionName), {
+        title: data.title,
+        image: `https://image.tmdb.org/t/p/w500${data.backdrop_path}`,
+        uid: user.uid,
+        homepage: data.homepage,
+      });
+      alert("Movie added to watchlist!");
+    } catch (error) {
+      console.error("Movie not added:", error);
+    }
+  }
+
+  const goto = location.state?.search || "";
+  function renderMovieDetails(movie) {
+    return (
+      <div className="movie-details-container ">
         <div className="movie-details">
-          <Link to=".." relative="path">
-            &larr; <span>back to movies</span>
+          <Link to={`..${goto}`} relative="path">
+            ⬅ back to movies
           </Link>
+          {/* <BackButton /> */}
           <img
-            src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+            src={
+              movie.backdrop_path
+                ? `https://image.tmdb.org/t/p/w500${movie.backdrop_path}`
+                : logo
+            }
             alt={movie.title}
           />
           <div className="movie-description">
@@ -56,18 +115,26 @@ export default function MovieDetails() {
               <strong>Overview: </strong>
               {movie.overview}
             </p>
-            {movie.homepage && (
-              <div className="watch_on_netflix">
-                <a href={movie.homepage} target="_blank">
-                  Watch Now
-                </a>
-              </div>
-            )}
+            <div className="moviedetail-btn-container">
+              {movie.homepage && (
+                <div className="watch_on_netflix">
+                  <a href={movie.homepage} target="_blank">
+                    Watch Now
+                  </a>
+                </div>
+              )}
+              <button onClick={handleClick} className="btn movie-details-btn">
+                Add to watchlist
+              </button>
+            </div>
           </div>
         </div>
-      ) : (
-        <h2>Loading...</h2>
-      )}
-    </div>
+      </div>
+    );
+  }
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Await resolve={movieData.movie}>{renderMovieDetails}</Await>
+    </Suspense>
   );
 }

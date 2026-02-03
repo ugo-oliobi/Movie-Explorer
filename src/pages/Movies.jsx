@@ -1,73 +1,59 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { getYear, shortenOverview } from "../utils";
+import { Await, defer, Link, useLoaderData } from "react-router-dom";
+import { getYear, shortenOverview, getMovies } from "../utils";
+import { Suspense } from "react";
+import LoadingSpinner from "../component/loadingSpinner";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-export default function Movies() {
-  const url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
+const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&region=US`;
 
-  const [movies, setMovies] = useState([]);
-
-  useEffect(() => {
-    //fetch(url)
-    fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&region=US
-`)
-      .then((res) => res.json())
-      .then((data) => {
-        setMovies(data.results);
-      });
-  }, []);
-
-  console.log(movies);
-  const movieEl = movies.map((movie) => (
-    <Link to={`${movie.id}`} className="movie-card" key={movie.id}>
-      <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
-      <div className="movie-text">
-        <p>
-          <strong>Title: </strong>
-          {movie.title}
-        </p>
-        <p>
-          <strong>Release Year: </strong>
-          {getYear(movie.release_date)}
-        </p>
-        <p>
-          <strong>Overview: </strong>
-          {shortenOverview(movie.overview)}
-        </p>
-      </div>
-      <button
-        className="btn"
-        onClick={() => {
-          console.log("clicked");
-        }}
-      >
-        Add to Watchlist
-      </button>
-    </Link>
-  ));
-  return (
-    <>
-      <div className="movies-container">
-        <h1 className="page-title">Movie Explorer</h1>
-        {movies.length > 0 ? movieEl : <h2>Loading...</h2>}
-      </div>
-    </>
-  );
+export function loader() {
+  return defer({ movies: getMovies(url) });
 }
 
-// fetch(`https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`)
-//   .then((res) => res.json())
-//   .then((data) => {
-//     console.log(data);
-//   });
+export default function Movies() {
+  // const url = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}`;
 
-// const genres = [
-//   { id: 28, name: "Action" },
-//   { id: 878, name: "Science Fiction" },
-//   { id: 12, name: "Adventure" },
-//   { id: 53, name: "Thriller" },
-// ];
+  const movieData = useLoaderData();
+  function renderMovies(movies) {
+    const movieEl = movies.map((movie) => (
+      <Link to={`${movie.id}`} className="movie-card" key={movie.id}>
+        <img src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`} />
+        <div className="movie-text">
+          <p>
+            <strong>Title: </strong>
+            {movie.title}
+          </p>
+          <p>
+            <strong>Release Year: </strong>
+            {getYear(movie.release_date)}
+          </p>
+          <p>
+            <strong>Overview: </strong>
+            {shortenOverview(movie.overview)}
+          </p>
+        </div>
+        {/* <button
+          className="btn"
+          onClick={() => {
+            console.log("clicked");
+          }}
+        >
+          Add to Watchlist
+        </button> */}
+      </Link>
+    ));
+    return (
+      <div className="movies-container">
+        <h1 className="page-title">Movie Explorer</h1>
+        {movieEl}
+      </div>
+    );
+  }
 
-// console.log(getGenreNames(genres));
+  return (
+    <Suspense fallback={<LoadingSpinner />}>
+      <Await resolve={movieData.movies}>{renderMovies}</Await>
+    </Suspense>
+  );
+}

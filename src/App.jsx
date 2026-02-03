@@ -1,28 +1,79 @@
-import { useEffect } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Movies from "./pages/Movies";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from "react-router-dom";
+import Home, { loader as homepageLoader } from "./pages/Home";
+import Movies, { loader as moviesLoader } from "./pages/Movies";
 import About from "./pages/About";
-import MovieDetails from "./pages/MovieDetails";
-import Watchlist from "./pages/Watchlist";
-import Popular from "./pages/Popular";
+import MovieDetails, {
+  loader as movieDetailsLoader,
+} from "./pages/MovieDetails";
+import Error from "./component/Error";
+import Watchlist, { loader as watchlistLoader } from "./pages/Watchlist";
+import Popular, { loader as popularLoader } from "./pages/Popular";
 import Layout from "./component/Layout";
+import SearchPage, { loader as searchLoader } from "./pages/SearchPage";
+import PageNotFound from "./component/PageNotFound";
+import Login, {
+  loader as loginLoader,
+  action as loginAction,
+} from "./component/Login";
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" errorElement={<Error />} element={<Layout />}>
+        <Route index loader={homepageLoader} element={<Home />} />
+        <Route
+          path=":id"
+          loader={movieDetailsLoader}
+          element={<MovieDetails />}
+        />
+        <Route path="movies" loader={moviesLoader} element={<Movies />} />
+        <Route
+          path="movies/:id"
+          loader={movieDetailsLoader}
+          element={<MovieDetails />}
+        />
+        <Route path="popular" loader={popularLoader} element={<Popular />} />
+        <Route path="search" loader={searchLoader} element={<SearchPage />} />
+        <Route
+          path="search/:id"
+          loader={movieDetailsLoader}
+          element={<MovieDetails />}
+        />
+        <Route
+          path="popular/:id"
+          loader={movieDetailsLoader}
+          element={<MovieDetails />}
+        />
+        <Route
+          path="watchlist"
+          loader={watchlistLoader}
+          element={<Watchlist />}
+        />
+        <Route path="about" element={<About />} />
+        <Route
+          path="login"
+          loader={loginLoader}
+          action={loginAction}
+          element={<Login />}
+        />
+      </Route>
+      <Route path="*" element={<PageNotFound />} />
+    </>,
+  ),
+);
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="movies" element={<Movies />} />
-          <Route path="movies/:id" element={<MovieDetails />} />
-          <Route path="popular" element={<Popular />} />
-          <Route path="popular/:id" element={<MovieDetails />} />
-          <Route path="watchlist" element={<Watchlist />} />
-          <Route path="about" element={<About />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <RouterProvider
+      router={router}
+      future={{
+        v7_startTransition: true,
+      }}
+    />
   );
 }
 

@@ -8,7 +8,7 @@
   --button-color1: #7293da;
   --button-color2: #52c882;
   --button-color3: #40e0d0;
-  --button-color4: #f8a0d0;
+  --button-color4: #eb5065;
 
   --primary-font: "roboto", sans-serif;
   --secondary-font: "Calistoga", sans-serif;
@@ -78,33 +78,64 @@ a:active {
 .movie-details img {
   margin-top: 8px;
 }
-.movies-container,
 .movie-details-container {
   display: flex;
   flex-wrap: wrap;
   padding: 0px 20px;
   gap: 20px;
-  justify-content: center;
+  justify-content: space-around;
 }
 .movies-container > * {
   flex: 1 0 auto;
+  /* flex: 0 0 25%; */
 }
-.page-title {
-  flex: 1 0 100%;
+.watchlist-container,
+.movies-container {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* .movies-search {
+  justify-content: flex-start;
+} */
+.page-title,
+.upcoming {
+  /* flex: 1 0 100%; */
   font-family: "Bebas Neue", sans-serif;
+  grid-column: 1 / -1;
 }
 .movie-card {
-  width: 300px;
-  background-color: var(--gray-color1);
+  /* max-width: 400px;
+  width: 250px; */
+  background-color: var(--gray-color4);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   text-decoration: none;
+  padding: 5px 5px 15px;
+  justify-self: start;
   color: #000;
 }
+
 .movie-card > img {
   width: 100%;
   border-radius: 5px;
+}
+.img-logo-container {
+  width: 100%;
+  aspect-ratio: 1/1;
+  /* overflow: hidden; */
+}
+.logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.search-card {
+  max-width: 300px;
 }
 .movie-text {
   padding: 10px;
@@ -113,7 +144,8 @@ a:active {
   margin-top: 0px;
   margin-bottom: 5px;
 }
-.btn {
+.btn,
+.watch_on_netflix {
   border: none;
   cursor: pointer;
   box-shadow: 2px 2px 5px 2px var(--gray-color3);
@@ -122,13 +154,42 @@ a:active {
   font-size: 17px;
   cursor: pointer;
 }
-.movie-card > button {
-  padding: 5px;
+.movie-details-btn,
+.watch_on_netflix {
+  padding: 10px;
   margin-top: auto;
-  width: 50%;
+  width: max-content;
+  color: white;
   margin-bottom: 10px;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   background-color: var(--royal-blue);
+}
+.watchlist-btn {
+  border: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 2px var(--gray-color3);
+  border-radius: 15px;
+  font-family: var(--primary-font);
+  cursor: pointer;
+  padding: 8px;
+  margin-top: auto;
+  font-size: 12px;
+  text-align: center;
+  width: 40%;
+  color: white;
+  background-color: var(--royal-blue);
+}
+.watchlist-btn > a {
+  color: white;
+  text-decoration: none;
+  font-size: 12px;
+}
+.moviedetail-btn-container {
+  display: flex;
+  justify-content: space-between;
+}
+.delete-btn {
+  background-color: var(--button-color4);
 }
 .movie-details-container {
   max-width: 480px;
@@ -143,16 +204,11 @@ p > span {
   font-size: 1.8rem;
   font-weight: bold;
 }
-.watch_on_netflix {
-  margin-top: 22px;
-}
-.watch_on_netflix > a {
+
+/* .watch_on_netflix > a {
   text-decoration: none;
-  background-color: var(--royal-blue);
-  padding: 8px;
-  border-radius: 8px;
   color: white;
-}
+} */
 .movie-description p {
   margin: 8px 0px;
 }
@@ -227,7 +283,6 @@ main {
 }
 .menu-container {
   /* position: relative; */
-  display: flex;
   display: grid;
   grid-template-columns: 1fr auto auto;
 }
@@ -238,9 +293,17 @@ main {
   font-size: 1.2rem;
   cursor: pointer;
 }
+.userimage-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
 .searchbox {
   cursor: pointer;
   width: 50px;
+  border: none;
+  background: none;
   border-left: 1px solid var(--gray-color2);
   display: flex;
   justify-content: center;
@@ -254,6 +317,7 @@ main {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  width: 28%;
 }
 .search-input {
   flex: 1;
@@ -279,7 +343,172 @@ main {
 .userImage-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
+.login_user {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  top: 80%;
+  right: 2%;
+  padding: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: white;
+  /* padding: 8px; */
+}
+.loginIsOpen {
+  display: flex;
+}
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.error-msg {
+  margin-left: 20px;
+  font-weight: 500;
+  font-family: "Bebas Neue", sans-serif;
+}
+/* Sign in  */
+.login-view {
+  width: 100%;
+}
+.signin-title,
+.signin-error {
+  text-align: center;
+
+  font-weight: 500;
+  font-family: "Bebas Neue", sans-serif;
+}
+.signin-title {
+  color: blue;
+  margin-bottom: 2px;
+}
+.signin-error {
+  color: red;
+  margin: 2px auto;
+}
+.google {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.google-signin-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+.modal-display {
+  padding: 20px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  position: fixed;
+  z-index: 10;
+}
+
+.register {
+  display: block;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  background-color: white;
+}
+.register-line {
+  display: block;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.5);
+}
+.modal-btn {
+  display: flex;
+  justify-content: space-between;
+}
+.modal-btn > button,
+.menu-btn > button {
+  padding: 5px 15px;
+  background-color: var(--button-color1);
+}
+#modal-title {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+.fields-container,
+.signin-form {
+  width: 300px;
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+}
+.fields-container {
+  margin: 10px auto;
+}
+.fields-container > button,
+.signin-form > button {
+  height: 35px;
+}
+.fields-container > input,
+.signin-form > input {
+  height: 30px;
+  font-size: 17px;
+  padding-left: 5px;
+}
+.sign-in-btn {
+  background-color: var(--button-color3);
+}
+
+.overlay {
+  position: fixed;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 1;
+  /* display: block; */
+}
+
+#create-account-msg,
+#signin-msg {
+  margin: 0;
+  text-align: center;
+  color: red;
+}
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Example 
+  height for container */
+}
+
+.loader {
+  border: 6px solid #f3f3f3; /* Light grey background */
+  border-top: 6px solid #3498db; /* Blue top border (the "rolling" part) */
+  border-radius: 50%; /* Makes it a circle */
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite; /* Applies the spin animation */
+}
+
+/* Keyframe animation for the rotation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.watchlist-text {
+  text-align: center;
+}
+
 @media (max-width: 1077px) {
   header {
     padding: 0;

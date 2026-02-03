@@ -1,10 +1,21 @@
 import { useState, useRef, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { authSignout } from "../utils";
+import DisplayName from "./DisplayName";
 import userImage from "../assets/image/user.svg";
 import searchIcon from "../assets/image/search-icon.svg";
+import { auth } from "../utils";
 export default function Menu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [loginIsOpen, setLoginIsOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+
+  // const [searchParams, setSearchParams] = useSearchParams();
+
+  // console.log(searchParams.get("searchInput"));
   const menuRef = useRef(null);
+  const signRef = useRef(null);
   const styles = {
     fontWeight: "bold",
     color: "black",
@@ -12,18 +23,30 @@ export default function Menu() {
 
   useEffect(() => {
     function handleClickOnPage(event) {
-      console.log(event.target.closest(".nav-list"));
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         if (event.target.closest(".nav-list") === null) {
           setIsOpen(false);
         }
       }
+      if (signRef.current && !signRef.current.contains(event.target)) {
+        if (event.target.closest(".userImage-container") === null) {
+          setLoginIsOpen(false);
+        }
+      }
     }
     document.addEventListener("mousedown", handleClickOnPage);
-    console.log("ugo");
+
     return () => document.removeEventListener("mousedown", handleClickOnPage);
   }, []);
-  console.log(menuRef.current);
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!query) return;
+    navigate(`/search?query=${query}`);
+  }
+  function handleChange(e) {
+    setQuery(e.target.value);
+  }
+
   return (
     <div className="menu-container">
       <button
@@ -33,12 +56,23 @@ export default function Menu() {
       >
         ☰
       </button>
-      <div className="search-container">
-        <input className="search-input" placeholder="Search" />
-        <div className="searchbox">
+      <form
+        id="search-form"
+        onSubmit={handleSubmit}
+        className="search-container"
+      >
+        <input
+          id="search"
+          type="text"
+          value={query}
+          onChange={handleChange}
+          className="search-input"
+          placeholder="Search"
+        />
+        <button className="searchbox">
           <img src={searchIcon} />
-        </div>
-      </div>
+        </button>
+      </form>
       <ul className={`nav-list ${isOpen ? "open" : ""}`}>
         <NavLink
           style={({ isActive }) => (isActive ? styles : null)}
@@ -81,7 +115,44 @@ export default function Menu() {
         </NavLink>
       </ul>
       <div className="userImage-container">
-        <img src={userImage} alt="user image" />
+        <img
+          src={userImage}
+          alt="user image"
+          ref={signRef}
+          onClick={() => {
+            setLoginIsOpen((prev) => !prev);
+          }}
+        />
+        <div className={`login_user ${loginIsOpen ? "loginIsOpen" : ""}`}>
+          {auth?.currentUser ? (
+            <DisplayName />
+          ) : (
+            <>
+              <button
+                className="register"
+                onClick={() => {
+                  navigate("/login");
+                  setLoginIsOpen(false);
+                }}
+              >
+                Sign in
+              </button>
+              {auth?.currentUser && <div className="register-line"></div>}
+            </>
+          )}
+          {auth?.currentUser && (
+            <button
+              className="register"
+              onClick={() => {
+                navigate("/login");
+                authSignout();
+                setLoginIsOpen(false);
+              }}
+            >
+              Sign out
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
