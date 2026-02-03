@@ -501,7 +501,10 @@ main {
   height: 50px;
   animation: spin 2s linear infinite; /* Applies the spin animation */
 }
-
+.not-found {
+  text-align: center;
+  font-family: var(--secondary-font);
+}
 /* Keyframe animation for the rotation */
 @keyframes spin {
   0% {

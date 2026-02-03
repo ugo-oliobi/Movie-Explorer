@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { getMovies, getYear, shortenOverview } from "../utils";
 import logo from "../assets/image/movieLogo.svg";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import LoadingSpinner from "../component/LoadingSpinner";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -58,21 +58,19 @@ export default function SearchPage() {
             {shortenOverview(movie.overview)}
           </p>
         </div>
-        {/* <button
-          className="btn"
-          onClick={() => {
-            console.log("clicked");
-          }}
-        >
-          Add to Watchlist
-        </button> */}
       </Link>
     ));
-    return (
+
+    return movieEl.length > 0 ? (
       <div className="watchlist-container ">
         <h1 className="page-title">Movie Explorer</h1>
         {movieEl}
       </div>
+    ) : (
+      <p className="not-found">
+        We couldn't find any matches for the movie. Check your spelling or try
+        another keyword.
+      </p>
     );
   }
 
