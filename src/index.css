@@ -151,7 +151,7 @@ a:active {
   box-shadow: 2px 2px 5px 2px var(--gray-color3);
   border-radius: 18px;
   font-family: var(--primary-font);
-  font-size: 17px;
+  font-size: 14px;
   cursor: pointer;
 }
 .movie-details-btn,
@@ -160,7 +160,7 @@ a:active {
   margin-top: auto;
   width: max-content;
   color: white;
-  margin-bottom: 10px;
+  font-size: 12px;
   /* margin-left: 10px; */
   text-align: center;
   width: 40%;
