@@ -9,7 +9,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { Suspense } from "react";
-import LoadingSpinner from "../component/loadingSpinner";
+import LoadingSpinner from "../component/LoadingSpinner";
 
 export async function loader({ request }) {
   const user = await reqireAuth(request);

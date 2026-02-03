@@ -1,7 +1,7 @@
 import { Await, defer, Link, useLoaderData } from "react-router-dom";
 import { getMovies, getYear, shortenOverview } from "../utils";
 import { Suspense } from "react";
-import LoadingSpinner from "../component/loadingSpinner";
+import LoadingSpinner from "../component/LoadingSpinner";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const url = `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`;

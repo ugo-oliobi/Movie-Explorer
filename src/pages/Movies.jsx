@@ -1,7 +1,7 @@
 import { Await, defer, Link, useLoaderData } from "react-router-dom";
 import { getYear, shortenOverview, getMovies } from "../utils";
 import { Suspense } from "react";
-import LoadingSpinner from "../component/loadingSpinner";
+import LoadingSpinner from "../component/LoadingSpinner";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 

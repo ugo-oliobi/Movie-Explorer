@@ -8,7 +8,7 @@ import {
 import { getMovies, getYear, shortenOverview } from "../utils";
 import logo from "../assets/image/movieLogo.svg";
 import { Suspense } from "react";
-import LoadingSpinner from "../component/loadingSpinner";
+import LoadingSpinner from "../component/LoadingSpinner";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
 export function loader({ request }) {

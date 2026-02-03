@@ -8,7 +8,6 @@ import {
 } from "react-router-dom";
 import logo from "../assets/image/movieLogo.svg";
 import parentalControl from "../assets/parentalcontrol.svg";
-import { onAuthStateChanged } from "firebase/auth";
 import {
   collection,
   doc,
@@ -22,7 +21,7 @@ import {
 // import { useParams } from "react-router-dom";
 import { getGenreNames, getMovieDetails, getReleasedDate } from "../utils";
 import { Suspense } from "react";
-import LoadingSpinner from "../component/loadingSpinner";
+import LoadingSpinner from "../component/LoadingSpinner";
 import { auth, collectionName, db } from "../utils";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
