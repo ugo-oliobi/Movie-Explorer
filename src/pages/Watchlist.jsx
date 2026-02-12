@@ -1,4 +1,5 @@
-import { Await, defer, useLoaderData, useRevalidator } from "react-router-dom";
+import { Await, defer, useLoaderData } from "react-router-dom";
+import PaginationList from "../component/PaginationList";
 import { reqireAuth, db, collectionName } from "../utils";
 import {
   query,
@@ -32,23 +33,24 @@ export async function loader({ request }) {
 
 export default function Watchlist() {
   const data = useLoaderData();
-  const revalidator = useRevalidator();
-
-  async function deleteMovie(id) {
-    let userChoice = confirm("Are you sure you want to delete this movie?");
-
-    if (userChoice) {
-      await deleteDoc(doc(db, collectionName, id));
-      revalidator.revalidate();
-    }
-  }
 
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Await resolve={data.movies}>
         {(movie) =>
           Array.isArray(movie) ? (
-            <div className="watchlist-container ">
+            <PaginationList movies={movie} />
+          ) : (
+            <p className="watchlist-text">{movie.message}</p>
+          )
+        }
+      </Await>
+    </Suspense>
+  );
+}
+
+{
+  /* <div className="watchlist-container ">
               {movie.map((movie) => (
                 <div key={movie.id} className="movie-card">
                   <img
@@ -79,12 +81,5 @@ export default function Watchlist() {
                   </div>
                 </div>
               ))}
-            </div>
-          ) : (
-            <p className="watchlist-text">{movie.message}</p>
-          )
-        }
-      </Await>
-    </Suspense>
-  );
+            </div> */
 }

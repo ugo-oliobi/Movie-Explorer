@@ -28,8 +28,9 @@ body {
   font-family: var(--primary-font);
   background-color: var(--gray-color1);
 }
-p {
+.movie-text > p {
   line-height: 1.6;
+  font-size: 0.7rem;
 }
 
 header {
@@ -51,6 +52,7 @@ header > img {
   background-color: var(--royal-blue);
   border-radius: 50%;
 }
+
 .nav-list {
   list-style: none;
   display: flex;
@@ -85,21 +87,45 @@ a:active {
   gap: 20px;
   justify-content: space-around;
 }
-.movies-container > * {
+/* .movies-container > * {
   flex: 1 0 auto;
-  /* flex: 0 0 25%; */
-}
+  
+} */
 .watchlist-container,
 .movies-container {
-  padding: 30px;
+  padding: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 20px;
 }
+.watchlist-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+.watchlist-movie-container {
+  flex: 1;
+}
+.slider {
+  display: flex;
+  justify-content: center;
+}
+.slider-section_1 {
+  width: 40%;
+}
+.slider-section_2 {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
 
-/* .movies-search {
-  justify-content: flex-start;
-} */
+.slider-section_2_img {
+  width: 100%;
+  object-fit: contain;
+  border-radius: 5px;
+}
 .page-title,
 .upcoming {
   /* flex: 1 0 100%; */
@@ -107,14 +133,12 @@ a:active {
   grid-column: 1 / -1;
 }
 .movie-card {
-  /* max-width: 400px;
-  width: 250px; */
   background-color: var(--gray-color4);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  padding: 5px 5px 15px;
+  padding: 5px 5px 10px;
   justify-self: start;
   color: #000;
 }
@@ -144,31 +168,22 @@ a:active {
   margin-top: 0px;
   margin-bottom: 5px;
 }
-.btn,
-.watch_on_netflix {
+.btn {
   border: none;
   cursor: pointer;
   box-shadow: 2px 2px 5px 2px var(--gray-color3);
   border-radius: 18px;
   font-family: var(--primary-font);
-  font-size: 14px;
   cursor: pointer;
-}
-.movie-details-btn,
-.watch_on_netflix {
   padding: 10px;
-  margin-top: auto;
-  width: max-content;
+}
+
+.movie-detail-btn {
   color: white;
   font-size: 12px;
-  /* margin-left: 10px; */
   text-align: center;
   width: 40%;
   background-color: var(--royal-blue);
-}
-.watch_on_netflix > a {
-  color: white;
-  text-decoration: none;
 }
 .watchlist-btn {
   border: none;
@@ -177,23 +192,22 @@ a:active {
   border-radius: 15px;
   font-family: var(--primary-font);
   cursor: pointer;
-  padding: 8px;
+  padding: 0.5em;
   margin-top: auto;
-  font-size: 12px;
   text-align: center;
-  width: 40%;
+  width: max-content;
+  font-size: 10px;
   color: white;
   background-color: var(--royal-blue);
 }
-.watchlist-btn > a {
-  color: white;
-  text-decoration: none;
-  font-size: 12px;
-}
+
 .moviedetail-btn-container {
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: end;
 }
+
 .delete-btn {
   background-color: var(--button-color4);
 }
@@ -264,6 +278,8 @@ main {
   cursor: pointer;
   z-index: 1;
   border-radius: 50%;
+  width: 40px;
+  height: 40px;
 }
 .homepage-movie-image-container button:first-of-type {
   left: 10px;
@@ -279,6 +295,7 @@ main {
   text-align: center;
   font-family: "Bebas Neue", sans-serif;
   padding: 0px 15px;
+  font-size: 1.5rem;
 }
 .aboutpage-container {
   padding: 20px;
@@ -517,7 +534,41 @@ main {
 .watchlist-text {
   text-align: center;
 }
+.pag-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pagination-link {
+  display: flex;
+  list-style-type: none;
+  margin: 10px auto;
+}
 
+.active-number {
+  background-color: var(--button-color1);
+}
+.pagination-btn {
+  border: none;
+  padding: 15px;
+  border-radius: 3px;
+}
+@media (max-width: 600px) {
+  .slider-section_2 {
+    display: none;
+  }
+  .slider-section_1 {
+    width: 70%;
+  }
+}
+@media (min-width: 1200px) {
+  .watchlist-container {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+}
 @media (max-width: 1077px) {
   header {
     padding: 0;

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { getMovies, getYear, shortenOverview } from "../utils";
 import logo from "../assets/image/movieLogo.svg";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 import LoadingSpinner from "../component/LoadingSpinner";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
@@ -53,10 +53,12 @@ export default function SearchPage() {
             <strong>Release Year: </strong>
             {getYear(movie.release_date)}
           </p>
-          <p>
-            <strong>Overview: </strong>
-            {shortenOverview(movie.overview)}
-          </p>
+          {movie.overview && (
+            <p>
+              <strong>Overview: </strong>
+              {shortenOverview(movie.overview)}
+            </p>
+          )}
         </div>
       </Link>
     ));

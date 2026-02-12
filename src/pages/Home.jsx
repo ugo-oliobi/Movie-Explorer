@@ -35,21 +35,13 @@ export default function Home() {
             {shortenOverview(movie.overview)}
           </p>
         </div>
-        {/* <button
-          className="btn"
-          onClick={() => {
-            console.log("clicked");
-          }}
-        >
-          Add to Watchlist
-        </button> */}
       </Link>
     ));
 
     return (
       <>
         <section className="homepage-movie-container">
-          <Slider movie={movieData} />;
+          <Slider movie={movieData} />
         </section>
         <section className="movies-container">
           <h2 className="upcoming">Upcoming...</h2>

@@ -20,7 +20,6 @@ import Login, {
   loader as loginLoader,
   action as loginAction,
 } from "./component/Login";
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -78,3 +77,11 @@ function App() {
 }
 
 export default App;
+
+// const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+
+// const page = 2;
+// const recordPerPage = 4;
+// const record = arr.slice((page - 1) * recordPerPage, page * recordPerPage);
+// const numberOfPages = Math.ceil(arr.length / recordPerPage);
+// console.log(record, numberOfPages);

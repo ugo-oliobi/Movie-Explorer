@@ -77,6 +77,7 @@ export default function MovieDetails() {
   }
 
   const goto = location.state?.search || "";
+
   function renderMovieDetails(movie) {
     return (
       <div className="movie-details-container ">
@@ -116,14 +117,17 @@ export default function MovieDetails() {
             </p>
             <div className="moviedetail-btn-container">
               {movie.homepage && (
-                <div className="watch_on_netflix">
-                  <a href={movie.homepage} target="_blank">
-                    Watch Now
-                  </a>
-                </div>
+                <button
+                  className="btn movie-detail-btn"
+                  onClick={() => {
+                    window.open(movie.homepage, "_blank");
+                  }}
+                >
+                  Watch Now
+                </button>
               )}
-              <button onClick={handleClick} className="btn movie-details-btn">
-                Add to watchlist
+              <button onClick={handleClick} className="btn movie-detail-btn">
+                Add to Watchlist
               </button>
             </div>
           </div>
