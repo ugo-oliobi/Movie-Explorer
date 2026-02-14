@@ -31,6 +31,9 @@ body {
 .movie-text > p {
   line-height: 1.6;
   font-size: 0.7rem;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  text-wrap: none;
 }
 
 header {
@@ -142,7 +145,10 @@ a:active {
   justify-self: start;
   color: #000;
 }
-
+.watchlist-card {
+  justify-content: space-between; /* pushes content apart */
+  height: 100%; /* ensures full height for alignment */
+}
 .movie-card > img {
   width: 100%;
   border-radius: 5px;
@@ -164,10 +170,7 @@ a:active {
 .movie-text {
   padding: 10px;
 }
-.movie-text > p {
-  margin-top: 0px;
-  margin-bottom: 5px;
-}
+
 .btn {
   border: none;
   cursor: pointer;
@@ -205,11 +208,21 @@ a:active {
   margin-top: 20px;
   display: flex;
   justify-content: space-between;
-  align-items: end;
 }
 
 .delete-btn {
   background-color: var(--button-color4);
+}
+.toast-btn {
+  width: 30%;
+}
+.toast-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.toast-text {
+  flex-grow: 1;
 }
 .movie-details-container {
   max-width: 480px;
@@ -538,6 +551,7 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0px 20px;
 }
 .pagination-link {
   display: flex;

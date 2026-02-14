@@ -16,9 +16,7 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-//import BackButton from "../component/BackButton";
-
-// import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { getGenreNames, getMovieDetails, getReleasedDate } from "../utils";
 import { Suspense } from "react";
 import LoadingSpinner from "../component/LoadingSpinner";
@@ -60,7 +58,8 @@ export default function MovieDetails() {
       const snapshot = await getDocs(q);
 
       if (!snapshot.empty) {
-        alert("Movie already in watchlist!");
+        // alert("Movie already in watchlist!");
+        toast.warning("Movie already in watchlist!");
         return;
       }
 
@@ -70,8 +69,10 @@ export default function MovieDetails() {
         uid: user.uid,
         homepage: data.homepage,
       });
-      alert("Movie added to watchlist!");
+      // alert("Movie added to watchlist!");
+      toast.success("Movie added to watchlist!");
     } catch (error) {
+      toast.error(`Movie not added: ${error}`);
       console.error("Movie not added:", error);
     }
   }

@@ -4,6 +4,8 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Home, { loader as homepageLoader } from "./pages/Home";
 import Movies, { loader as moviesLoader } from "./pages/Movies";
 import About from "./pages/About";
@@ -67,21 +69,16 @@ const router = createBrowserRouter(
 );
 function App() {
   return (
-    <RouterProvider
-      router={router}
-      future={{
-        v7_startTransition: true,
-      }}
-    />
+    <>
+      <RouterProvider
+        router={router}
+        future={{
+          v7_startTransition: true,
+        }}
+      />
+      <ToastContainer />
+    </>
   );
 }
 
 export default App;
-
-// const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
-
-// const page = 2;
-// const recordPerPage = 4;
-// const record = arr.slice((page - 1) * recordPerPage, page * recordPerPage);
-// const numberOfPages = Math.ceil(arr.length / recordPerPage);
-// console.log(record, numberOfPages);

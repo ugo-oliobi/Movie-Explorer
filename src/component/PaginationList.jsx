@@ -1,6 +1,7 @@
 import { useSearchParams, useRevalidator } from "react-router-dom";
 import { collectionName, db } from "../utils";
 import { doc, deleteDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 export default function PaginationList({ movies }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -15,26 +16,48 @@ export default function PaginationList({ movies }) {
   const numberOfPages = Math.ceil(movies.length / recordsPerPage);
   const numbers = [...Array(numberOfPages + 1).keys()].slice(1);
 
-  async function deleteMovie(id) {
-    let userChoice = confirm("Are you sure you want to delete this movie?");
+  function deleteMovie(id) {
+    toast(
+      ({ closeToast }) => (
+        <div className="toast-container">
+          <p className="toast-text">
+            Are you sure you want to delete this movie
+          </p>
+          <button
+            className="btn toast-btn"
+            onClick={async () => {
+              await deleteDoc(doc(db, collectionName, id));
+              revalidator.revalidate();
 
-    if (userChoice) {
-      await deleteDoc(doc(db, collectionName, id));
-      revalidator.revalidate();
+              const newMovies = movies.filter((m) => m.id !== id);
+              const newNumberOfPages = Math.ceil(
+                newMovies.length / recordsPerPage,
+              );
 
-      const newMovies = movies.filter((m) => m.id !== id);
-      const newNumberOfPages = Math.ceil(newMovies.length / recordsPerPage);
-
-      if (page > newNumberOfPages) {
-        setSearchParams({ page: newNumberOfPages });
-      } else if (
-        newMovies.slice((page - 1) * recordsPerPage, page * recordsPerPage)
-          .length === 0 &&
-        page > 1
-      ) {
-        setSearchParams({ page: page - 1 });
-      }
-    }
+              if (page > newNumberOfPages) {
+                setSearchParams({ page: newNumberOfPages });
+              } else if (
+                newMovies.slice(
+                  (page - 1) * recordsPerPage,
+                  page * recordsPerPage,
+                ).length === 0 &&
+                page > 1
+              ) {
+                setSearchParams({ page: page - 1 });
+              }
+              closeToast();
+              toast.success("movie successfully deleted from your watchlist");
+            }}
+          >
+            Yes
+          </button>
+          <button className="btn toast-btn" onClick={closeToast}>
+            Cancel
+          </button>
+        </div>
+      ),
+      { autoClose: false },
+    );
   }
 
   function gotoPrevPage() {
@@ -48,7 +71,7 @@ export default function PaginationList({ movies }) {
     }
   }
   const movieElements = records.map((movie) => (
-    <div key={movie.id} className="movie-card">
+    <div key={movie.id} className="movie-card watchlist-card">
       <img src={movie.image} alt={movie.title} className="thumbnail" />
       <div className="movie-text">
         <p>
@@ -56,23 +79,21 @@ export default function PaginationList({ movies }) {
           {movie.title}
         </p>
       </div>
-      <div className="watchlist-btn-container">
-        <div className="moviedetail-btn-container">
-          {movie.homepage && (
-            <button
-              className="watchlist-btn left"
-              onClick={() => window.open(movie.homepage, "_blank")}
-            >
-              Watch Now
-            </button>
-          )}
+      <div className="moviedetail-btn-container">
+        {movie.homepage && (
           <button
-            onClick={() => deleteMovie(movie.id)}
-            className="watchlist-btn delete-btn right"
+            className="watchlist-btn"
+            onClick={() => window.open(movie.homepage, "_blank")}
           >
-            Delete movie
+            Watch Now
           </button>
-        </div>
+        )}
+        <button
+          onClick={() => deleteMovie(movie.id)}
+          className="watchlist-btn delete-btn"
+        >
+          Delete movie
+        </button>
       </div>
     </div>
   ));

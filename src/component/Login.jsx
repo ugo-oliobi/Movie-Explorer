@@ -16,7 +16,7 @@ import {
   signUpWithEmailAndPassword,
   loginWithEmailAndPassword,
 } from "../utils";
-
+import { toast } from "react-toastify";
 export function loader({ request }) {
   return defer({
     message: new URL(request.url).searchParams.get("message"),
@@ -38,6 +38,7 @@ export async function action({ request }) {
     // return { success: "Account created successfully!", formType };
     try {
       await signUpWithEmailAndPassword(auth, email, password);
+      toast.success("Account successfully created.");
       return redirect(pathname);
     } catch (error) {
       return { error: "An error has occurred!", formType };
