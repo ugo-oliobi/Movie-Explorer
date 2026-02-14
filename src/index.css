@@ -546,6 +546,7 @@ main {
 }
 .watchlist-text {
   text-align: center;
+  font-family: var(--secondary-font);
 }
 .pag-container {
   display: flex;

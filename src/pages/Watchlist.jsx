@@ -48,38 +48,3 @@ export default function Watchlist() {
     </Suspense>
   );
 }
-
-{
-  /* <div className="watchlist-container ">
-              {movie.map((movie) => (
-                <div key={movie.id} className="movie-card">
-                  <img
-                    src={movie.image}
-                    alt={movie.title}
-                    className="thumbnail"
-                  />
-                  <div className="movie-text">
-                    <p>
-                      <strong>Title: </strong>
-                      {movie.title}
-                    </p>
-                  </div>
-                  <div className="moviedetail-btn-container">
-                    {movie.homepage && (
-                      <div className="watchlist-btn">
-                        <a href={movie.homepage} target="_blank">
-                          Watch Now
-                        </a>
-                      </div>
-                    )}
-                    <button
-                      onClick={() => deleteMovie(movie.id)}
-                      className="watchlist-btn delete-btn"
-                    >
-                      Delete movie
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div> */
-}
