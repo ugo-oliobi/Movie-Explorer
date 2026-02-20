@@ -10,7 +10,7 @@ export default function About() {
       </p>
       <ul>
         <li>🔍 Explore movies by genre, mood, era, or popularity</li>
-        <li>📚 Learn about films with rich details, ratings, and reviews</li>
+        <li>📚 Learn about films with rich details.</li>
         <li>📝 Track what you’ve watched and curate your own lists</li>
         <li>
           🎯 Get recommendations tailored to your tastes and viewing habits

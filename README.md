@@ -4,13 +4,28 @@
 
 ---
 
+### 🌍 Live Demo
+
+Try it here: [Movie Explorer Demo](https://ugo-movie.netlify.app/)
+
+---
+
 ### 🚀 Features
 
 - 🔍 Search movies by title or keyword
-- 🎬 View movie details including synopsis, cast, and ratings
-- 📅 Browse by release year or genre
+- 📚 Learn about films with rich details.
 - 🌐 Responsive design for mobile and desktop
-- 💾 Save Watchlist (optional with local storage or user auth)
+- 💾 Save and delete movies from Watchlist
+
+---
+
+### 📸 Screenshots
+
+Homepage view:
+![Homepage Screenshot](src/assets/image/screenshot/homepage.png)
+
+Watchlist view:
+![Homepage Screenshot](src/assets/image/screenshot/watchlist.png)
 
 ---
 
@@ -19,6 +34,7 @@
 - **Frontend:** React, React Router
 - **Styling:** CSS Modules / Styled Components
 - **API:** [The Movie Database (TMDb)](https://www.themoviedb.org/documentation/api)
+- **Database:** Cloud Firestore (Firebase)
 - **Deployment:** Netlify / GitHub Pages
 
 ---
